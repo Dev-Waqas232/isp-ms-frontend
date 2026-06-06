@@ -30,7 +30,7 @@ export default function Navbar() {
 
       <div className="flex items-center gap-2">
         <Link to="/login" className="text-sm font-medium text-text-muted hover:text-text transition-colors px-4 py-2">Sign in</Link>
-        <Link to="/register"
+        <Link to="/onboarding"
           className="text-sm hidden md:block font-bold text-white bg-primary hover:bg-primary-dark px-4 py-2 md:px-5 md:py-2.5 rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25">
           <span className="hidden md:inline">Get started free</span>
           <span className="md:hidden">Get started</span>

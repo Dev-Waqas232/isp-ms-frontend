@@ -67,7 +67,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center justify-center gap-3 flex-wrap"
         >
-          <Link to="/register"
+          <Link to="/onboarding"
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold px-7 py-3.5 rounded-xl text-[15px] transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/30">
             Set up your ISP for free <ArrowRight size={16} />
           </Link>

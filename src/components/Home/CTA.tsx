@@ -27,7 +27,7 @@ export default function CTA() {
             Join hundreds of ISP owners who've replaced their spreadsheets with NetFlow. Set up in minutes, completely free.
           </p>
           <Link
-            to="/register"
+            to="/onboarding"
             className="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-3.5 rounded-xl text-base transition-all relative z-10 hover:-translate-y-0.5 hover:shadow-xl"
           >
             Create your free account <ArrowRight size={17} />

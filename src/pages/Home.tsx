@@ -4,6 +4,7 @@ import Stats from "../components/Home/Stats";
 import Features from "../components/Home/Features";
 import HowItWork from "../components/Home/HowItWork";
 import Footer from "../components/Home/Footer";
+import CTA from "../components/Home/CTA";
 
 export default function LandingPage() {
   return (
@@ -13,6 +14,7 @@ export default function LandingPage() {
       <Stats />
       <Features />
       <HowItWork />
+      <CTA />
       <Footer />
     </div>
   )
