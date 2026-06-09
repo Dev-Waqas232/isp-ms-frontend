@@ -97,7 +97,7 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
-            <Spinner />
+            <Spinner className="h-4.5 w-4.5 text-white" />
             Creating account...
           </span>
         ) : "Continue →"}
