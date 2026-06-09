@@ -8,22 +8,22 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center px-8 pt-28 pb-20 overflow-hidden">
       {/* Blobs */}
       <motion.div
-        style={{ position: "absolute", top: -160, right: -160, width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.35) 0%, rgba(124,58,237,0.12) 40%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }}
+        style={{ position: "absolute", top: -160, right: -160, width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,0.35) 0%, rgba(37,99,235,0.12) 40%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }}
         animate={{ x: [0, 40, -20, 0], y: [0, -60, 40, 0], scale: [1, 1.1, 0.93, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        style={{ position: "absolute", bottom: -80, left: -130, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.3) 0%, rgba(167,139,250,0.1) 45%, transparent 70%)", filter: "blur(70px)", pointerEvents: "none" }}
+        style={{ position: "absolute", bottom: -80, left: -130, width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.3) 0%, rgba(14,165,233,0.1) 45%, transparent 70%)", filter: "blur(70px)", pointerEvents: "none" }}
         animate={{ x: [0, -50, 60, 0], y: [0, 30, -40, 0], scale: [1, 1.07, 0.96, 1] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        style={{ position: "absolute", top: "35%", left: "30%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 65%)", filter: "blur(50px)", pointerEvents: "none" }}
+        style={{ position: "absolute", top: "35%", left: "30%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 65%)", filter: "blur(50px)", pointerEvents: "none" }}
         animate={{ x: [0, 60, -40, 20, 0], y: [0, -40, 60, -20, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        style={{ position: "absolute", top: "20%", left: "10%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(196,181,253,0.2) 0%, transparent 65%)", filter: "blur(50px)", pointerEvents: "none" }}
+        style={{ position: "absolute", top: "20%", left: "10%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(147,197,253,0.2) 0%, transparent 65%)", filter: "blur(50px)", pointerEvents: "none" }}
         animate={{ x: [0, 30, -20, 0], y: [0, 50, -30, 0], scale: [1, 1.15, 0.9, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
@@ -47,7 +47,7 @@ export default function Hero() {
           style={{ fontFamily: "var(--font-heading)" }}
         >
           Run your ISP like a{" "}
-          <span className="bg-linear-to-br from-primary to-violet-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-br from-primary to-info bg-clip-text text-transparent">
             pro
           </span>
         </motion.h1>

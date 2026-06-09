@@ -19,7 +19,9 @@ const registerSchema = z.object({
 
 type RegisterData = z.infer<typeof registerSchema>
 
-export default function RegistorForm({ onSubmit }: { onSubmit: (data: RegisterData) => void }) {
+export type { RegisterData }
+
+export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit: (data: RegisterData) => void, isLoading?: boolean }) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -84,9 +86,10 @@ export default function RegistorForm({ onSubmit }: { onSubmit: (data: RegisterDa
 
       <button
         type="submit"
+        disabled={isLoading}
         className="mt-2 h-10.5 bg-primary hover:bg-primary-dark text-white font-bold text-[15px] rounded-[10px] cursor-pointer transition-colors duration-200 flex items-center justify-center"
       >
-        Continue →
+        {isLoading ? "Creating account..." : "Continue →"}
       </button>
     </form>
   )

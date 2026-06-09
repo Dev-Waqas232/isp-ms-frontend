@@ -12,12 +12,12 @@ export default function HowItWork() {
   return (
     <section id="about" className="relative py-24 px-8 bg-white border-t border-border overflow-hidden">
       <motion.div
-        style={{ position: "absolute", top: -60, left: -60, width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 65%)", filter: "blur(65px)", pointerEvents: "none" }}
+        style={{ position: "absolute", top: -60, left: -60, width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%)", filter: "blur(65px)", pointerEvents: "none" }}
         animate={{ x: [0, 40, -20, 0], y: [0, 30, -40, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        style={{ position: "absolute", bottom: -80, right: -80, width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.2) 0%, transparent 65%)", filter: "blur(65px)", pointerEvents: "none" }}
+        style={{ position: "absolute", bottom: -80, right: -80, width: 450, height: 450, borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 65%)", filter: "blur(65px)", pointerEvents: "none" }}
         animate={{ x: [0, 30, -30, 0], y: [0, 50, -20, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -33,7 +33,7 @@ export default function HowItWork() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((item, i) => (
             <FadeUp key={item.step} delay={i * 0.12}>
-              <div className="font-black text-[72px] leading-none mb-4 select-none bg-linear-to-br from-primary to-violet-400 bg-clip-text text-transparent" style={{ fontFamily: "var(--font-heading)" }}>{item.step}</div>
+              <div className="font-black text-[72px] leading-none mb-4 select-none bg-linear-to-br from-primary to-info bg-clip-text text-transparent" style={{ fontFamily: "var(--font-heading)" }}>{item.step}</div>
               <h3 className="text-xl font-bold text-text mb-3" style={{ fontFamily: "var(--font-heading)" }}>{item.title}</h3>
               <p className="text-sm text-text-muted leading-relaxed">{item.desc}</p>
             </FadeUp>

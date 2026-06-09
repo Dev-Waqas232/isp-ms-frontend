@@ -18,12 +18,12 @@ export default function Features() {
   return (
     <section id="features" className="relative py-24 px-8 overflow-hidden">
       <motion.div
-        style={{ position: "absolute", top: -100, left: -100, width: 550, height: 550, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.2) 0%, rgba(124,58,237,0.06) 50%, transparent 70%)", filter: "blur(70px)", pointerEvents: "none" }}
+        style={{ position: "absolute", top: -100, left: -100, width: 550, height: 550, borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,0.2) 0%, rgba(37,99,235,0.06) 50%, transparent 70%)", filter: "blur(70px)", pointerEvents: "none" }}
         animate={{ x: [0, -50, 60, 0], y: [0, 30, -40, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        style={{ position: "absolute", bottom: -80, right: -80, width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 65%)", filter: "blur(60px)", pointerEvents: "none" }}
+        style={{ position: "absolute", bottom: -80, right: -80, width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 65%)", filter: "blur(60px)", pointerEvents: "none" }}
         animate={{ x: [0, 40, -30, 0], y: [0, -50, 30, 0] }}
         transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -44,7 +44,7 @@ export default function Features() {
           {features.map((f, i) => (
             <FadeUp key={f.title} delay={i * 0.08}>
               <motion.div
-                whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(124,58,237,0.10)" }}
+                whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(37,99,235,0.10)" }}
                 transition={{ duration: 0.2 }}
                 className="bg-white border border-border rounded-2xl p-7 h-full cursor-default hover:border-primary transition-colors duration-200"
               >
