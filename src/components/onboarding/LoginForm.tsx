@@ -5,6 +5,7 @@ import { z } from "zod"
 import { Eye, EyeOff, Lock, Mail } from "lucide-react"
 
 import Input from "../shared/Input"
+import Spinner from "../shared/Spinner"
 
 const loginSchema = z.object({
   email: z.email("Enter a valid email address"),
@@ -31,6 +32,7 @@ export default function LoginForm({ onSubmit, isLoading = false }: { onSubmit: (
         placeholder="john@example.com"
         leftIcon={<Mail size={16} />}
         error={errors.email?.message}
+        disabled={isLoading}
         {...register("email")}
       />
 
@@ -43,6 +45,7 @@ export default function LoginForm({ onSubmit, isLoading = false }: { onSubmit: (
         rightIcon={showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
         onRightIconClick={() => setShowPassword(p => !p)}
         error={errors.password?.message}
+        disabled={isLoading}
         {...register("password")}
       />
 
@@ -51,7 +54,12 @@ export default function LoginForm({ onSubmit, isLoading = false }: { onSubmit: (
         disabled={isLoading}
         className="mt-2 h-10.5 bg-primary hover:bg-primary-dark text-white font-bold text-[15px] rounded-[10px] cursor-pointer transition-colors duration-200 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isLoading ? "Signing in..." : "Sign in"}
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <Spinner />
+            Signing in...
+          </span>
+        ) : "Sign in"}
       </button>
     </form>
   )

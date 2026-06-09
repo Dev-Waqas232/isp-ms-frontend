@@ -64,6 +64,8 @@ export default function DashboardLayout({ children, eyebrow = "Dashboard", title
         adminInitials={adminInitials}
         adminName={adminName}
         isOpen={sidebarOpen}
+        isStoreError={storeQuery.isError}
+        isStoreLoading={storeQuery.isLoading}
         onClose={() => setSidebarOpen(false)}
         onLogout={logout}
         store={storeQuery.data}

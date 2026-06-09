@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router"
 import { useAuth } from "../context/useAuth"
 import { getStoredToken } from "../lib/auth-storage"
 import { validateSession } from "../services/auth.service"
+import PageLoader from "../components/shared/PageLoader"
 
 export default function ProtectedRoute() {
   const auth = useAuth()
@@ -20,7 +21,7 @@ export default function ProtectedRoute() {
   }
 
   if (query.isLoading) {
-    return null
+    return <PageLoader message="Validating your session" />
   }
 
   if (query.isError) {

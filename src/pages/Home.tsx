@@ -9,6 +9,7 @@ import Features from "../components/Home/Features";
 import HowItWork from "../components/Home/HowItWork";
 import Footer from "../components/Home/Footer";
 import CTA from "../components/Home/CTA";
+import PageLoader from "../components/shared/PageLoader";
 import { useAuth } from "../context/useAuth";
 import { getStoredToken } from "../lib/auth-storage";
 import { validateSession } from "../services/auth.service";
@@ -40,8 +41,12 @@ export default function LandingPage() {
     }
   }, [auth, navigate, query.data?.user, query.isError, token])
 
+  if (token && query.isLoading) {
+    return <PageLoader message="Checking your session" />
+  }
+
   if (token) {
-    return null
+    return <PageLoader message="Opening dashboard" />
   }
 
   return (

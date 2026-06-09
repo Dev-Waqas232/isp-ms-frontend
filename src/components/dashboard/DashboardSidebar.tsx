@@ -14,12 +14,15 @@ import {
 import { Link, useLocation } from "react-router";
 
 import type { Store } from "../../types/api";
+import Spinner from "../shared/Spinner";
 
 type DashboardSidebarProps = {
   adminEmail?: string;
   adminInitials: string;
   adminName: string;
   isOpen: boolean;
+  isStoreError?: boolean;
+  isStoreLoading?: boolean;
   onClose: () => void;
   onLogout: () => void;
   store: Store | null | undefined;
@@ -86,15 +89,20 @@ export default function DashboardSidebar({
   adminInitials,
   adminName,
   isOpen,
+  isStoreError = false,
+  isStoreLoading = false,
   onClose,
   onLogout,
   store,
 }: DashboardSidebarProps) {
   const location = useLocation();
-  const storeName = store?.providerName ?? "Your ISP Store";
-  const storeMeta =
-    [store?.city, store?.contactNumber].filter(Boolean).join(" - ") ||
-    "Store details loading";
+  const storeName = isStoreLoading
+    ? "Loading store..."
+    : store?.providerName ?? "Your ISP Store";
+  const storeMeta = isStoreError
+    ? "Could not load store details"
+    : [store?.city, store?.contactNumber].filter(Boolean).join(" - ") ||
+      "Store details loading";
   const logoUrl = getStoreLogoUrl(store?.logoUrl);
 
   return (
@@ -107,7 +115,11 @@ export default function DashboardSidebar({
       <div className="shrink-0 border-b border-border px-5 py-5">
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
-            {logoUrl ? (
+            {isStoreLoading ? (
+              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                <Spinner />
+              </div>
+            ) : logoUrl ? (
               <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-border bg-bg shadow-lg shadow-primary/10">
                 <img
                   src={logoUrl}

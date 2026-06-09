@@ -5,6 +5,7 @@ import { z } from "zod"
 import { Eye, EyeOff, User, Mail, Lock } from "lucide-react"
 
 import Input from "../shared/Input"
+import Spinner from "../shared/Spinner"
 
 const registerSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -38,6 +39,7 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
           placeholder="John"
           leftIcon={<User size={16} />}
           error={errors.firstName?.message}
+          disabled={isLoading}
           {...register("firstName")}
         />
         <Input
@@ -46,6 +48,7 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
           placeholder="Doe"
           leftIcon={<User size={16} />}
           error={errors.lastName?.message}
+          disabled={isLoading}
           {...register("lastName")}
         />
       </div>
@@ -57,6 +60,7 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
         placeholder="john@example.com"
         leftIcon={<Mail size={16} />}
         error={errors.email?.message}
+        disabled={isLoading}
         {...register("email")}
       />
 
@@ -69,6 +73,7 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
         rightIcon={showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
         onRightIconClick={() => setShowPassword(p => !p)}
         error={errors.password?.message}
+        disabled={isLoading}
         {...register("password")}
       />
 
@@ -81,15 +86,21 @@ export default function RegisterForm({ onSubmit, isLoading = false }: { onSubmit
         rightIcon={showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
         onRightIconClick={() => setShowConfirm(p => !p)}
         error={errors.confirmPassword?.message}
+        disabled={isLoading}
         {...register("confirmPassword")}
       />
 
       <button
         type="submit"
         disabled={isLoading}
-        className="mt-2 h-10.5 bg-primary hover:bg-primary-dark text-white font-bold text-[15px] rounded-[10px] cursor-pointer transition-colors duration-200 flex items-center justify-center"
+        className="mt-2 h-10.5 bg-primary hover:bg-primary-dark text-white font-bold text-[15px] rounded-[10px] cursor-pointer transition-colors duration-200 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isLoading ? "Creating account..." : "Continue →"}
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <Spinner />
+            Creating account...
+          </span>
+        ) : "Continue →"}
       </button>
     </form>
   )
