@@ -1,9 +1,8 @@
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeDollarSign,
   ChevronRight,
-  CircleGauge,
   LayoutDashboard,
   Settings2,
   ShieldCheck,
@@ -11,48 +10,75 @@ import {
   Wallet,
   X,
   type LucideIcon,
-} from "lucide-react"
-import { Link, useLocation } from "react-router"
+} from "lucide-react";
+import { Link, useLocation } from "react-router";
 
-import type { Store } from "../../types/api"
+import type { Store } from "../../types/api";
 
 type DashboardSidebarProps = {
-  adminEmail?: string
-  adminInitials: string
-  adminName: string
-  isOpen: boolean
-  onClose: () => void
-  onLogout: () => void
-  store: Store | null | undefined
-}
+  adminEmail?: string;
+  adminInitials: string;
+  adminName: string;
+  isOpen: boolean;
+  onClose: () => void;
+  onLogout: () => void;
+  store: Store | null | undefined;
+};
 
 type NavItem = {
-  description: string
-  icon: LucideIcon
-  label: string
-  to: string
-}
+  description: string;
+  icon: LucideIcon;
+  label: string;
+  to: string;
+};
 
 const navItems: NavItem[] = [
-  { to: "/dashboard", label: "Dashboard", description: "Overview and daily pulse", icon: LayoutDashboard },
-  { to: "/dashboard#customers", label: "Customers", description: "Manage clients and installs", icon: Users },
-  { to: "/dashboard#payments", label: "Payments", description: "Track bills and collection", icon: BadgeDollarSign },
-  { to: "/dashboard#expenses", label: "Expenses", description: "Monitor operations spend", icon: Wallet },
-  { to: "/dashboard#settings", label: "Settings", description: "Tune access and brand", icon: Settings2 },
-]
+  {
+    to: "/dashboard",
+    label: "Dashboard",
+    description: "Overview and daily pulse",
+    icon: LayoutDashboard,
+  },
+  {
+    to: "/dashboard#customers",
+    label: "Customers",
+    description: "Manage clients and installs",
+    icon: Users,
+  },
+  {
+    to: "/dashboard#payments",
+    label: "Payments",
+    description: "Track bills and collection",
+    icon: BadgeDollarSign,
+  },
+  {
+    to: "/dashboard#expenses",
+    label: "Expenses",
+    description: "Monitor operations spend",
+    icon: Wallet,
+  },
+  {
+    to: "/dashboard#settings",
+    label: "Settings",
+    description: "Tune access and brand",
+    icon: Settings2,
+  },
+];
 
-const API_ORIGIN = (import.meta.env.VITE_API_URL ?? "http://localhost:3000/api").replace(/\/api\/?$/, "")
+const API_ORIGIN = (
+  import.meta.env.VITE_API_URL ?? "http://localhost:3000/api"
+).replace(/\/api\/?$/, "");
 
 function getStoreLogoUrl(logoUrl?: string | null) {
   if (!logoUrl) {
-    return null
+    return null;
   }
 
   if (/^https?:\/\//.test(logoUrl)) {
-    return logoUrl
+    return logoUrl;
   }
 
-  return `${API_ORIGIN}/${logoUrl.replace(/^\/+/, "")}`
+  return `${API_ORIGIN}/${logoUrl.replace(/^\/+/, "")}`;
 }
 
 export default function DashboardSidebar({
@@ -64,10 +90,12 @@ export default function DashboardSidebar({
   onLogout,
   store,
 }: DashboardSidebarProps) {
-  const location = useLocation()
-  const storeName = store?.providerName ?? "Your ISP Store"
-  const storeMeta = [store?.city, store?.contactNumber].filter(Boolean).join(" - ") || "Store details loading"
-  const logoUrl = getStoreLogoUrl(store?.logoUrl)
+  const location = useLocation();
+  const storeName = store?.providerName ?? "Your ISP Store";
+  const storeMeta =
+    [store?.city, store?.contactNumber].filter(Boolean).join(" - ") ||
+    "Store details loading";
+  const logoUrl = getStoreLogoUrl(store?.logoUrl);
 
   return (
     <motion.aside
@@ -81,7 +109,11 @@ export default function DashboardSidebar({
           <div className="flex min-w-0 items-center gap-3">
             {logoUrl ? (
               <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-border bg-bg shadow-lg shadow-primary/10">
-                <img src={logoUrl} alt={storeName} className="h-full w-full object-cover" />
+                <img
+                  src={logoUrl}
+                  alt={storeName}
+                  className="h-full w-full object-cover"
+                />
               </div>
             ) : (
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary text-sm font-black text-white shadow-lg shadow-primary/25">
@@ -90,8 +122,12 @@ export default function DashboardSidebar({
             )}
 
             <div className="min-w-0">
-              <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-text-muted">Store</p>
-              <h2 className="truncate font-heading text-lg font-black">{storeName}</h2>
+              <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-text-muted">
+                Store
+              </p>
+              <h2 className="truncate font-heading text-lg font-black">
+                {storeName}
+              </h2>
               <p className="truncate text-xs text-text-muted">{storeMeta}</p>
             </div>
           </div>
@@ -107,11 +143,13 @@ export default function DashboardSidebar({
       </div>
 
       <nav className="min-h-0 flex-1 space-y-2 overflow-y-auto px-3 py-5">
-        {navItems.map(item => {
-          const Icon = item.icon
-          const isActive = item.to === "/dashboard"
-            ? location.pathname === "/dashboard" && !location.hash
-            : location.pathname + location.hash === item.to || location.pathname === item.to
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive =
+            item.to === "/dashboard"
+              ? location.pathname === "/dashboard" && !location.hash
+              : location.pathname + location.hash === item.to ||
+                location.pathname === item.to;
 
           return (
             <Link
@@ -120,18 +158,25 @@ export default function DashboardSidebar({
               onClick={onClose}
               className={`group flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-300 ${isActive ? "border-primary/20 bg-primary/10 shadow-lg shadow-primary/10" : "border-transparent hover:border-border hover:bg-bg"}`}
             >
-              <span className={`mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl transition ${isActive ? "bg-primary text-white" : "bg-bg text-text-muted group-hover:text-primary"}`}>
+              <span
+                className={`mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl transition ${isActive ? "bg-primary text-white" : "bg-bg text-text-muted group-hover:text-primary"}`}
+              >
                 <Icon size={18} />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-center justify-between gap-2">
                   <span className="font-semibold">{item.label}</span>
-                  <ChevronRight className={isActive ? "text-primary" : "text-text-muted"} size={16} />
+                  <ChevronRight
+                    className={isActive ? "text-primary" : "text-text-muted"}
+                    size={16}
+                  />
                 </span>
-                <span className="mt-1 block text-xs leading-5 text-text-muted">{item.description}</span>
+                <span className="mt-1 block text-xs leading-5 text-text-muted">
+                  {item.description}
+                </span>
               </span>
             </Link>
-          )
+          );
         })}
       </nav>
 
@@ -146,9 +191,14 @@ export default function DashboardSidebar({
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold">{adminName}</p>
-            <p className="truncate text-xs text-text-muted">{adminEmail ?? "admin@netflow.local"}</p>
+            <p className="truncate text-xs text-text-muted">
+              {adminEmail ?? "admin@netflow.local"}
+            </p>
           </div>
-          <ArrowRight className="shrink-0 text-text-muted transition group-hover:translate-x-1 group-hover:text-primary" size={18} />
+          <ArrowRight
+            className="shrink-0 text-text-muted transition group-hover:translate-x-1 group-hover:text-primary"
+            size={18}
+          />
         </Link>
 
         <button
@@ -161,5 +211,5 @@ export default function DashboardSidebar({
         </button>
       </div>
     </motion.aside>
-  )
+  );
 }
