@@ -34,3 +34,25 @@ export function createStore(payload: CreateStorePayload) {
     auth: true,
   });
 }
+
+type StoresResponse = Store[] | { data?: Store[] | Store; stores?: Store[]; store?: Store };
+
+export async function getAdminStore() {
+  const data = await apiRequest<StoresResponse>("/stores", {
+    auth: true,
+  });
+
+  if (Array.isArray(data)) {
+    return data[0] ?? null;
+  }
+
+  if (Array.isArray(data.data)) {
+    return data.data[0] ?? null;
+  }
+
+  if (data.data) {
+    return data.data;
+  }
+
+  return data.store ?? data.stores?.[0] ?? null;
+}

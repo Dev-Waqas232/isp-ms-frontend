@@ -4,6 +4,7 @@ import Dashboard from "../pages/Dashboard";
 import LandingPage from "../pages/Home";
 import Login from "../pages/Login";
 import Onboarding from "../pages/OnBoarding";
+import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
       },
     ],
   },
