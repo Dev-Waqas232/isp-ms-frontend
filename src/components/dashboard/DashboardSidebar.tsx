@@ -43,21 +43,21 @@ const navItems: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
-    to: "/dashboard#customers",
+    to: "/dashboard/customers",
     label: "Customers",
     description: "Manage clients and installs",
     icon: Users,
   },
   {
-    to: "/dashboard#payments",
+    to: "/dashboard/payments",
     label: "Payments",
     description: "Track bills and collection",
     icon: BadgeDollarSign,
   },
   {
-    to: "/dashboard#expenses",
-    label: "Expenses",
-    description: "Monitor operations spend",
+    to: "/dashboard/plans",
+    label: "Plans",
+    description: "Manage packages and prices",
     icon: Wallet,
   },
   {
