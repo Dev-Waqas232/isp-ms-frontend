@@ -5,13 +5,14 @@ import DashboardLayout from "../components/dashboard/DashboardLayout";
 import DataTable from "../components/shared/DataTable";
 import Input from "../components/shared/Input";
 import { getPayments } from "../services/payment.service";
+import { getLocalMonthString } from "../lib/date";
 
 function money(value = 0) {
   return `PKR ${value.toLocaleString()}`;
 }
 
 export default function Payments() {
-  const [month, setMonth] = useState(new Date().toISOString().slice(0, 7));
+  const [month, setMonth] = useState(getLocalMonthString());
   const paymentsQuery = useQuery({
     queryKey: ["payments", month],
     queryFn: () => getPayments({ month }),
@@ -35,6 +36,7 @@ export default function Payments() {
         data={paymentsQuery.data?.payments ?? []}
         isLoading={paymentsQuery.isLoading}
         columns={[
+          { header: "#", render: (_, index) => index + 1 },
           { header: "Customer", render: payment => payment.customer?.name ?? "-" },
           { header: "Amount", render: payment => <span className="font-heading font-black">{money(payment.amount)}</span> },
           { header: "Method", render: payment => payment.method },

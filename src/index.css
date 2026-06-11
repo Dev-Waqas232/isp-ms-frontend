@@ -34,3 +34,16 @@
 html {
   scroll-behavior: smooth;
 }
+
+button,
+select,
+a,
+[role="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+select:disabled,
+a[disabled] {
+  cursor: not-allowed;
+}

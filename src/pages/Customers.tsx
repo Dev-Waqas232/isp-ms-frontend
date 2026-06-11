@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
-import { Plus } from "lucide-react";
+import { Plus, CreditCard, Edit, UserX } from "lucide-react";
 
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 import DataTable from "../components/shared/DataTable";
@@ -14,6 +14,7 @@ import { createCustomer, deactivateCustomer, getCustomers, updateCustomer, type 
 import { getPlans } from "../services/plan.service";
 import { recordPayment } from "../services/payment.service";
 import type { Customer, PaymentMethod } from "../types/api";
+import { formatLocalDate, getLocalDateString, getLocalDateTimeString } from "../lib/date";
 
 const methods: PaymentMethod[] = ["cash", "bank", "easypaisa"];
 
@@ -146,19 +147,42 @@ export default function Customers() {
         data={customersQuery.data?.customers ?? []}
         isLoading={customersQuery.isLoading}
         columns={[
+          { header: "#", render: (_, index) => (page - 1) * 10 + index + 1 },
           { header: "Customer", render: customer => <Link to={`/dashboard/customers/${customer.id}`} className="font-bold text-primary hover:underline">{customer.name}<span className="block text-xs font-medium text-text-muted">@{customer.username}</span></Link> },
           { header: "Phone", render: customer => customer.phoneNumber },
           { header: "Plan", render: customer => customer.plan?.name ?? "-" },
-          { header: "Expires", render: customer => customer.expirationDate },
+          { header: "Expires", render: customer => formatLocalDate(customer.expirationDate) },
           { header: "Status", render: customer => <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase ${statusClass(customer.paymentStatus)}`}>{customer.paymentStatus}</span> },
           { header: "Outstanding", render: customer => <span className="font-heading font-black">{money(customer.totalOutstanding)}</span> },
           {
             header: "Actions",
             render: customer => (
-              <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={() => setPaymentCustomer(customer)} className="rounded-xl border border-border px-3 py-2 text-xs font-bold text-primary">Pay</button>
-                <button type="button" onClick={() => { setEditingCustomer(customer); setCustomerModalOpen(true); }} className="rounded-xl border border-border px-3 py-2 text-xs font-bold">Edit</button>
-                <button type="button" onClick={() => deactivateMutation.mutate(customer.id)} disabled={deactivateMutation.isPending} className="rounded-xl border border-border px-3 py-2 text-xs font-bold text-danger disabled:opacity-60">Inactive</button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setPaymentCustomer(customer)}
+                  title="Record Payment"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-primary transition hover:bg-primary/10 border border-transparent hover:border-primary/10"
+                >
+                  <CreditCard size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setEditingCustomer(customer); setCustomerModalOpen(true); }}
+                  title="Edit Customer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-text transition hover:bg-bg border border-transparent hover:border-border"
+                >
+                  <Edit size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => deactivateMutation.mutate(customer.id)}
+                  disabled={deactivateMutation.isPending}
+                  title="Mark Inactive"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-danger transition hover:bg-danger/10 border border-transparent hover:border-danger/10 disabled:opacity-40"
+                >
+                  <UserX size={18} />
+                </button>
               </div>
             ),
           },
@@ -190,7 +214,7 @@ export default function Customers() {
               {plansQuery.data?.plans.map(plan => <option key={plan.id} value={plan.id}>{plan.name} - {money(plan.price)}</option>)}
             </select>
           </div>
-          <Input name="activationDate" label="Activation date" required type="date" defaultValue={editingCustomer?.activationDate ?? new Date().toISOString().slice(0, 10)} />
+          <Input name="activationDate" label="Activation date" required type="date" defaultValue={editingCustomer?.activationDate ?? getLocalDateString()} />
           <LoadingButton type="submit" isLoading={createMutation.isPending || updateMutation.isPending}>
             {editingCustomer ? "Update customer" : "Create customer"}
           </LoadingButton>
@@ -203,7 +227,7 @@ export default function Customers() {
             Recording payment for <span className="font-bold text-text">{paymentCustomer?.name}</span>
           </p>
           <Input name="amount" label="Amount" required type="number" min={1} />
-          <Input name="paidAt" label="Paid at" required type="datetime-local" defaultValue={new Date().toISOString().slice(0, 16)} />
+          <Input name="paidAt" label="Paid at" required type="datetime-local" defaultValue={getLocalDateTimeString()} />
           <div className="flex flex-col gap-1.5">
             <label className="text-[13px] font-semibold text-text">Method</label>
             <select name="method" className="h-10 rounded-[10px] border-[1.5px] border-border bg-surface px-3 text-sm outline-none focus:border-primary">

@@ -5,6 +5,7 @@ import DashboardLayout from "../components/dashboard/DashboardLayout";
 import DataTable from "../components/shared/DataTable";
 import PageLoader from "../components/shared/PageLoader";
 import { getCustomer } from "../services/customer.service";
+import { formatLocalDate } from "../lib/date";
 
 function money(value = 0) {
   return `PKR ${value.toLocaleString()}`;
@@ -33,7 +34,11 @@ export default function CustomerDetail() {
 
   return (
     <DashboardLayout eyebrow="Customer" title={customer?.name ?? "Customer details"}>
-      <Link to="/dashboard/customers" className="mb-4 inline-flex text-sm font-bold text-primary hover:underline">Back to customers</Link>
+      <div className="mb-4 flex items-center gap-2 text-sm text-text-muted">
+        <Link to="/dashboard/customers" className="hover:text-primary transition font-semibold">Customers</Link>
+        <span>/</span>
+        <span className="font-medium text-text">{customer?.name ?? "Customer details"}</span>
+      </div>
 
       <div className="mb-5 grid gap-4 rounded-2xl border border-border bg-surface p-5 md:grid-cols-4">
         <div>
@@ -60,8 +65,9 @@ export default function CustomerDetail() {
           <DataTable
             data={customer?.billingPeriods ?? []}
             columns={[
-              { header: "Start", render: period => period.periodStart },
-              { header: "End", render: period => period.periodEnd },
+              { header: "#", render: (_, index) => index + 1 },
+              { header: "Start", render: period => formatLocalDate(period.periodStart) },
+              { header: "End", render: period => formatLocalDate(period.periodEnd) },
               { header: "Due", render: period => money(period.amountDue) },
               { header: "Paid", render: period => money(period.amountPaid) },
               { header: "Balance", render: period => money(period.balance) },
@@ -75,6 +81,7 @@ export default function CustomerDetail() {
           <DataTable
             data={customer?.payments ?? []}
             columns={[
+              { header: "#", render: (_, index) => index + 1 },
               { header: "Amount", render: payment => money(payment.amount) },
               { header: "Method", render: payment => payment.method },
               { header: "Paid at", render: payment => new Date(payment.paidAt).toLocaleString() },

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { Plus } from "lucide-react";
+import { Plus, Edit, Power } from "lucide-react";
 
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 import DataTable from "../components/shared/DataTable";
@@ -86,6 +86,7 @@ export default function Plans() {
         data={plansQuery.data?.plans ?? []}
         isLoading={plansQuery.isLoading}
         columns={[
+          { header: "#", render: (_, index) => index + 1 },
           { header: "Name", render: plan => <span className="font-bold">{plan.name}</span> },
           { header: "Price", render: plan => <span className="font-heading font-black">{money(plan.price)}</span> },
           { header: "Description", render: plan => plan.description ?? "-" },
@@ -93,9 +94,26 @@ export default function Plans() {
           {
             header: "Actions",
             render: plan => (
-              <div className="flex gap-2">
-                <button type="button" onClick={() => { setEditingPlan(plan); setOpen(true); }} className="rounded-xl border border-border px-3 py-2 text-xs font-bold">Edit</button>
-                {plan.isActive && <button type="button" disabled={deactivateMutation.isPending} onClick={() => deactivateMutation.mutate(plan.id)} className="rounded-xl border border-border px-3 py-2 text-xs font-bold text-danger disabled:opacity-60">Deactivate</button>}
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => { setEditingPlan(plan); setOpen(true); }}
+                  title="Edit Plan"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-text transition hover:bg-bg border border-transparent hover:border-border"
+                >
+                  <Edit size={18} />
+                </button>
+                {plan.isActive && (
+                  <button
+                    type="button"
+                    disabled={deactivateMutation.isPending}
+                    onClick={() => deactivateMutation.mutate(plan.id)}
+                    title="Deactivate Plan"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-danger transition hover:bg-danger/10 border border-transparent hover:border-danger/10 disabled:opacity-40"
+                  >
+                    <Power size={18} />
+                  </button>
+                )}
               </div>
             ),
           },

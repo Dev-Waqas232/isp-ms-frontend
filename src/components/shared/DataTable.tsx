@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type Column<T> = {
   header: string;
-  render: (row: T) => ReactNode;
+  render: (row: T, index: number) => ReactNode;
 };
 
 type DataTableProps<T> = {
@@ -26,13 +26,19 @@ export default function DataTable<T>({ columns, data, emptyText = "No records fo
           </thead>
           <tbody className="divide-y divide-border">
             {isLoading ? (
-              <tr>
-                <td className="px-4 py-8 text-center text-text-muted" colSpan={columns.length}>Loading records...</td>
-              </tr>
+              Array.from({ length: 5 }).map((_, rowIndex) => (
+                <tr key={rowIndex} className="animate-pulse">
+                  {columns.map((_, colIndex) => (
+                    <td key={colIndex} className="px-4 py-4 align-middle">
+                      <div className="h-4 w-3/4 rounded bg-border" />
+                    </td>
+                  ))}
+                </tr>
+              ))
             ) : data.length ? data.map((row, index) => (
               <tr key={index} className="transition hover:bg-bg/70">
                 {columns.map(column => (
-                  <td key={column.header} className="px-4 py-4 align-middle">{column.render(row)}</td>
+                  <td key={column.header} className="px-4 py-4 align-middle">{column.render(row, index)}</td>
                 ))}
               </tr>
             )) : (
